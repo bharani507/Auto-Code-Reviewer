@@ -15,7 +15,7 @@ const context = github.context
 const repo = context.repo
 const test_trigger_review = 1;
 // safe change
-let trigger = Math.random();
+let trigger = 1;
 
 
 export const codeReview = async (
