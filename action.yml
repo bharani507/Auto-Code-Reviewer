@@ -1,29 +1,12 @@
-name: PR Reviewer
+name: 'PR Reviewer'
+description: 'AI PR Reviewer using Groq'
 
-on:
-  pull_request:
-    types: [opened, synchronize]
+inputs:
+  groq_api_key:
+    required: true
+    description: 'Groq API Key'
 
-jobs:
-  review:
-    if: github.actor != 'dependabot[bot]'
+runs:
+  using: 'node20'
+  main: 'dist/main.js'
 
-    runs-on: ubuntu-latest
-
-    permissions:
-      contents: read
-      pull-requests: write
-
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Install dependencies
-        run: npm install
-
-      - name: Build
-        run: npm run build
-
-      - name: Run Reviewer
-        uses: ./
-        

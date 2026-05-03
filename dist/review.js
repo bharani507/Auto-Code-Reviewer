@@ -13,7 +13,7 @@ const context = github.context;
 const repo = context.repo;
 const test_trigger_review = 1;
 // safe change
-let trigger = Math.random();
+let trigger = 1;
 export const codeReview = async (bot, options, prompts) => {
     const commenter = new Commenter();
     const openai_concurrency_limit = pLimit(options.openai_concurrency_limit);
