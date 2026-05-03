@@ -10,3 +10,6 @@ runs:
   using: 'node20'
   main: 'dist/main.js'
 
+debug:
+  required: false
+  default: false
