@@ -34,7 +34,7 @@ export class Bot {
                 ],
                 temperature: 0.2
             });
-            console.log("✅ RESPONSE RECEIVED");
+            console.log("✅ FULL RESPONSE:", JSON.stringify(response, null, 2));
             const text = response?.choices?.[0]?.message?.content;
             if (!text) {
                 console.log("⚠️ EMPTY RESPONSE FROM GROQ");
@@ -43,8 +43,8 @@ export class Bot {
             return [text, {}];
         }
         catch (e) {
-            console.log("❌ GROQ ERROR:", e.message);
-            return ['', {}];
+            console.log("❌ GROQ FULL ERROR:", JSON.stringify(e, null, 2));
+            throw e;
         }
     };
 }
