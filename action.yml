@@ -61,7 +61,7 @@ inputs:
   groq_model:
     required: false
     description: 'Groq model to use'
-    default: 'llama3-70b-8192'
+    default: 'llama-3.3-70b-versatile'
 
   # (optional rename — safe)
   temperature:
