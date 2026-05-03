@@ -1,97 +1,15 @@
-name: 'Groq-based PR Reviewer & Summarizer'
-description: 'Groq-based PR Reviewer and Summarizer'
-
-branding:
-  icon: 'aperture'
-  color: 'orange'
-
-author: 'FluxNinja, Inc.'
-
+name: 'PR Reviewer'
+description: 'AI PR Reviewer using Groq'
 
 inputs:
-  
-  github_token:
-    required: true
-    description: 'GitHub token'
-
   groq_api_key:
     required: true
     description: 'Groq API Key'
 
-  debug:
-    required: false
-    description: 'Enable debug mode'
-    default: 'false'
-
-  max_files:
-    required: false
-    description: 'Max files to review. Less than or equal to 0 means no limit.'
-    default: '60'
-
-  review_comment_lgtm:
-    required: false
-    description: 'Leave comments even if the patch is LGTM'
-    default: 'false'
-
-  path_filters:
-    required: false
-    description: 'Path filters'
-    default: |
-      !dist/**
-      !**/*.pb.go
-      !**/*.lock
-      !**/*.yaml
-      !**/*.yml
-      !**/*.cfg
-      !**/*.toml
-      !**/*.ini
-      !**/*.mod
-      !**/*.sum
-      !**/*.json
-      !**/*.mmd
-      !**/*.svg
-      !**/*.png
-      !**/*.dot
-      !**/*.md5sum
-      !**/gen/**
-      !**/_gen/**
-      !**/vendor/**
-
-  # ✅ CHANGED
-  groq_model:
-    required: false
-    description: 'Groq model to use'
-    default: 'llama-3.3-70b-versatile'
-
-  # (optional rename — safe)
-  temperature:
-    required: false
-    description: 'Model temperature'
-    default: '0.0'
-
-  retries:
-    required: false
-    description: 'Retry count'
-    default: '5'
-
-  timeout_ms:
-    required: false
-    description: 'Timeout in ms'
-    default: '60000'
-
-  concurrency_limit:
-    required: false
-    description: 'Concurrency limit'
-    default: '4'
-
-  system_message:
-    required: false
-    description: 'System message'
-    default: |
-      You are a highly experienced software engineer who reviews code thoroughly.
-
-# ⚠️ KEEP ALL OTHER PROMPTS SAME (no need to touch)
-
 runs:
-  using: 'node16'
+  using: 'node20'
   main: 'dist/main.js'
+
+debug:
+  required: false
+  default: false

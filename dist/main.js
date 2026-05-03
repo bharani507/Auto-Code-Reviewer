@@ -8,9 +8,9 @@ if (!apiKey) {
     throw new Error("Missing GROQ API KEY");
 }
 async function run() {
-    const options = new Options(core.getBooleanInput('debug'), core.getInput('max_files'), core.getBooleanInput('review_comment_lgtm'), core.getMultilineInput('path_filters'), core.getInput('system_message'), 
+    const options = new Options(false, core.getInput('max_files'), false, core.getMultilineInput('path_filters'), core.getInput('system_message'), 
     // ✅ use groq model
-    core.getInput('groq_model') || 'llama3-70b-8192', 
+    core.getInput('groq_model') || 'mixtral-8x7b-32768', 
     // ✅ KEEP AS STRING (IMPORTANT)
     core.getInput('temperature') || "0", core.getInput('retries') || "5", core.getInput('timeout_ms') || "60000", core.getInput('concurrency_limit') || "4");
     const prompts = new Prompts(core.getInput('review_beginning'), core.getInput('review_file'), core.getInput('review_file_diff'), core.getInput('review_patch_begin'), core.getInput('review_patch'), core.getInput('summarize_beginning'), core.getInput('summarize_file_diff'), core.getInput('summarize'), core.getInput('summarize_release_notes'), core.getInput('comment_beginning'), core.getInput('comment_file'), core.getInput('comment_file_diff'), core.getInput('comment'));

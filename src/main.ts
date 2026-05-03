@@ -14,14 +14,14 @@ if (!apiKey) {
 
 async function run(): Promise<void> {
   const options: Options = new Options(
-    core.getBooleanInput('debug'),
+    false,
     core.getInput('max_files'),
-    core.getBooleanInput('review_comment_lgtm'),
+    false,
     core.getMultilineInput('path_filters'),
     core.getInput('system_message'),
 
     // ✅ use groq model
-    core.getInput('groq_model') || 'llama3-70b-8192',
+    core.getInput('groq_model') || 'mixtral-8x7b-32768',
 
     // ✅ KEEP AS STRING (IMPORTANT)
     core.getInput('temperature') || "0",
