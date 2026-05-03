@@ -1,97 +1,33 @@
-name: 'Groq-based PR Reviewer & Summarizer'
-description: 'Groq-based PR Reviewer and Summarizer'
+name: PR Reviewer
 
-branding:
-  icon: 'aperture'
-  color: 'orange'
+on:
+  pull_request:
+    types: [opened, synchronize]
 
-author: 'FluxNinja, Inc.'
+jobs:
+  review:
+    if: github.actor != 'dependabot[bot]'
 
+    runs-on: ubuntu-latest
 
-inputs:
-  
-  github_token:
-    required: true
-    description: 'GitHub token'
+    permissions:
+      contents: read
+      pull-requests: write
 
-  groq_api_key:
-    required: true
-    description: 'Groq API Key'
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
 
-  debug:
-    required: false
-    description: 'Enable debug mode'
-    default: 'false'
+      - name: Install dependencies
+        run: npm install
 
-  max_files:
-    required: false
-    description: 'Max files to review. Less than or equal to 0 means no limit.'
-    default: '60'
+      - name: Build
+        run: npm run build
 
-  review_comment_lgtm:
-    required: false
-    description: 'Leave comments even if the patch is LGTM'
-    default: 'false'
-
-  path_filters:
-    required: false
-    description: 'Path filters'
-    default: |
-      !dist/**
-      !**/*.pb.go
-      !**/*.lock
-      !**/*.yaml
-      !**/*.yml
-      !**/*.cfg
-      !**/*.toml
-      !**/*.ini
-      !**/*.mod
-      !**/*.sum
-      !**/*.json
-      !**/*.mmd
-      !**/*.svg
-      !**/*.png
-      !**/*.dot
-      !**/*.md5sum
-      !**/gen/**
-      !**/_gen/**
-      !**/vendor/**
-
-  # ✅ CHANGED
-  groq_model:
-    required: false
-    description: 'Groq model to use'
-    default: 'llama-3.3-70b-versatile'
-
-  # (optional rename — safe)
-  temperature:
-    required: false
-    description: 'Model temperature'
-    default: '0.0'
-
-  retries:
-    required: false
-    description: 'Retry count'
-    default: '5'
-
-  timeout_ms:
-    required: false
-    description: 'Timeout in ms'
-    default: '60000'
-
-  concurrency_limit:
-    required: false
-    description: 'Concurrency limit'
-    default: '4'
-
-  system_message:
-    required: false
-    description: 'System message'
-    default: |
-      You are a highly experienced software engineer who reviews code thoroughly.
-
-# ⚠️ KEEP ALL OTHER PROMPTS SAME (no need to touch)
-
-runs:
-  using: 'node16'
-  main: 'dist/main.js'
+      - name: Run Reviewer
+        uses: ./
+        with:
+          groq_api_key: ${{ secrets.GROQ_API_KEY }}
+        env:
+          GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
