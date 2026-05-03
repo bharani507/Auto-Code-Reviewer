@@ -14,7 +14,7 @@ if (!apiKey) {
 
 async function run(): Promise<void> {
   const options: Options = new Options(
-    core.getBooleanInput('debug'),
+    core.getInput('debug') === 'true',
     core.getInput('max_files'),
     core.getBooleanInput('review_comment_lgtm'),
     core.getMultilineInput('path_filters'),

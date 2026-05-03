@@ -8,7 +8,7 @@ if (!apiKey) {
     throw new Error("Missing GROQ API KEY");
 }
 async function run() {
-    const options = new Options(core.getBooleanInput('debug'), core.getInput('max_files'), core.getBooleanInput('review_comment_lgtm'), core.getMultilineInput('path_filters'), core.getInput('system_message'), 
+    const options = new Options(core.getInput('debug') === 'true', core.getInput('max_files'), core.getBooleanInput('review_comment_lgtm'), core.getMultilineInput('path_filters'), core.getInput('system_message'), 
     // ✅ use groq model
     core.getInput('groq_model') || 'llama3-70b-8192', 
     // ✅ KEEP AS STRING (IMPORTANT)
