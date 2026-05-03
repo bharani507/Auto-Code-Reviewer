@@ -21,7 +21,7 @@ async function run(): Promise<void> {
     core.getInput('system_message'),
 
     // ✅ use groq model
-    core.getInput('groq_model') || 'llama-3.3-70b-versatile',
+    core.getInput('groq_model') || 'mixtral-8x7b-32768',
 
     // ✅ KEEP AS STRING (IMPORTANT)
     core.getInput('temperature') || "0",

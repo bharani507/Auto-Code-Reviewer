@@ -32,7 +32,7 @@ export class Bot {
       console.log("🚀 CALLING GROQ...")
 
       const response = await this.client.chat.completions.create({
-        model: 'llama-3.3-70b-versatile',
+        model: 'mixtral-8x7b-32768',
         messages: [
           {
             role: 'system',
@@ -46,7 +46,7 @@ export class Bot {
         temperature: 0.2
       })
 
-      console.log("✅ RESPONSE RECEIVED")
+      console.log("✅ FULL RESPONSE:", JSON.stringify(response, null, 2))
 
       const text = response?.choices?.[0]?.message?.content
 
@@ -58,8 +58,8 @@ export class Bot {
       return [text, {}]
 
     } catch (e: any) {
-      console.log("❌ GROQ ERROR:", e.message)
-      return ['', {}]
-    }
+        console.log("❌ GROQ FULL ERROR:", JSON.stringify(e, null, 2))
+        throw e
+      }
   }
 }
